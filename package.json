@@ -1,0 +1,16 @@
+{
+  "name": "node-demo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cookie-parser": "~1.4.4",
+    "dotenv": "^16.0.3",
+    "express": "~4.16.1",
+    "mongoose": "^6.8.2",
+    "nodemon": "^2.0.20"
+  }
+}
