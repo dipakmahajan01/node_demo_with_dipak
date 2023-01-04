@@ -1,5 +1,4 @@
 
-const { json } = require('body-parser')
 const nestedCategories = require('../common/getSub_Cat-data')
 const categoryModel = require('../model/categoryModel')
 exports.createCategory = async (req, res) => {
@@ -26,12 +25,13 @@ exports.createCategory = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
     try {
-        const { _id, name } = req.body
+        const { _id, name, description } = req.body
         let category = await categoryModel.findOne({ _id: _id })
-        if (category) {
-            return res.status(400).json({ error: error.message })
+        if (!category) {
+            return res.status(400).json({ error: "category not found" })
         }
         category.name = name
+        category.description = description
         await category.save()
     } catch {
         return res.status(500).json({ error: error.message })
@@ -61,7 +61,6 @@ exports.getAllCategory = async (req, res) => {
                 $options: 'i'
             }
         }]
-
     }
     const categories = await categoryModel.find(query)
     if (!categories) {
@@ -69,5 +68,4 @@ exports.getAllCategory = async (req, res) => {
     }
     let category = await nestedCategories(categories)
     return res.status(200).json({ data: category })
-
 }
